@@ -1,0 +1,11 @@
+install.packages("XLConnect")
+library(XLConnect)
+rm(list=ls())
+library(xlsx)
+setwd("C:/Users/moham/Desktop/xlsfiles")
+FILES <- list.files( pattern = ".txt")
+FILES
+for (i in 1:length(FILES)) {
+  FILE=read.delim(file=FILES[i],header=T)
+  write.xlsx(FILE,file=paste0("C:/Users/moham/Desktop/xlsfiles",sub(".txt","",FILES[i]),".xlsx"))
+}
