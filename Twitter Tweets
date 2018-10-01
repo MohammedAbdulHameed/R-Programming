@@ -1,0 +1,11 @@
+install.packages("twitteR")
+library("twitteR")
+install.packages("RCurl")
+library(RCurl)
+api_key <-"uX0TWqkx0okYEjjqLzxIx6mD6"
+api_secret <-"rzHIs3TMJnADbZNvdGU7LQUo0kPxPISq3RGSLfqcBip39X5END"
+access_token <-"559516596-yDA9xqOljo4CV32wSnqsx2BXh4RBIRKFxZGSZrPC"
+access_token_secret <-"zDxePILZitS5tIWBhre0GWqps0FIj9OadX8RZb6w8ZCwz"
+setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
+datascientist_tweets <- searchTwitter("iphone", n=100, lang = "en")
+datascientist_tweets
