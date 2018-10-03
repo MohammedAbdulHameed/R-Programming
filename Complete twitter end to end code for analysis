@@ -1,0 +1,72 @@
+## Complete twitter end to end code for analysis
+
+
+install.packages("capture")
+install.packages("twitteR")
+library("twitteR")
+install.packages("RCurl")
+library(RCurl)
+api_key <-"uX0TWqkx0okYEjjqLzxIx6mD6"
+api_secret <-"rzHIs3TMJnADbZNvdGU7LQUo0kPxPISq3RGSLfqcBip39X5END"
+access_token <-"559516596-yDA9xqOljo4CV32wSnqsx2BXh4RBIRKFxZGSZrPC"
+access_token_secret <-"zDxePILZitS5tIWBhre0GWqps0FIj9OadX8RZb6w8ZCwz"
+setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
+1
+smartbg <- userTimeline("smartbg", n=1000)
+smartbg
+n.tweet <-length(smartbg)
+
+smartbg.df <- twListToDF(smartbg)
+head(smartbg.df)
+
+head(smartbg.df$text)
+smartbg.df2 <- gsub("http.*","",smartbg.df$text)
+smartbg.df2
+smartbg.df2 <- gsub("https://.*","",smartbg.df$text)
+smartbg.df2
+smartbg.df2 <- gsub("#.*","",smartbg.df$text)
+smartbg.df2 <- gsub("@.*","",smartbg.df$text)
+head(smartbg.df2)
+
+
+#sentimen score for each tweet
+library(tm)
+install.packages("SnowballC")
+install.packages("syuzhet")
+library(SnowballC)
+library(syuzhet)
+sentiments
+word.df <- as.vector(smartbg.df2)
+emotion.df2 <- get_nrc_sentiment(smartbg.df2)
+head(emotion.df2)
+
+
+#sentimen value
+
+sent.value <-get_sentiment(word.df)
+sent.value
+
+summary(sent.value)
+most.positive <- word.df[sent.value == max(sent.value)]
+most.positive
+most.negative <-word.df[sent.value <=min(sent.value)]
+most.negative
+
+
+pos.tweet <- word.df[sent.value > 0]
+head(pos.tweet)
+neg.tweet <- word.df[sent.value < 0]
+head(neg.tweet)
+neu.tweet <- word.df[sent.value == 0]
+head(neu.tweet)
+
+category_senti <- ifelse(sent.value < 0, "Negative", ifelse(sent.value > 0, "Positive", "Neutral"))
+category_senti
+str(category_senti)
+store <- table(category_senti)
+str(store)
+hist(store)
+barplot(store)
+-install.packages("ggplot2")
+library("ggplot2")
+plot(store)
