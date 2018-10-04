@@ -1,0 +1,6 @@
+require(XLConnect)
+wb = loadWorkbook("C:/Users/moham/Desktop/chennai/xls/test/Chennai 50000.xls")
+df = readWorksheet(wb, sheet = "Sheet1", header = TRUE)
+
+df = readWorksheet(wb,sheet = "Sheet1", header = TRUE,startRow =1,endRow = 1)
+df
