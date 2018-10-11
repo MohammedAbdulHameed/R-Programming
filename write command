@@ -1,0 +1,1 @@
+write.xlsx(goal,file=paste0("C:/Users/moham/Desktop/Adarsh_oct11/rout.xlsx"))
